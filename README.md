@@ -1,5 +1,6 @@
 # go-mysql-test-container
 [![Build Status](https://app.travis-ci.com/arikama/go-mysql-test-container.svg?branch=master)](https://app.travis-ci.com/arikama/go-mysql-test-container)
+[![codecov](https://codecov.io/gh/arikama/go-mysql-test-container/branch/master/graph/badge.svg?token=isZCzDyj1N)](https://codecov.io/gh/arikama/go-mysql-test-container)
 
 Migration runner & MySQL wrapper for https://github.com/testcontainers/testcontainers-go
 ## Development
