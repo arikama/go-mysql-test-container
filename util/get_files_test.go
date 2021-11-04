@@ -2,7 +2,7 @@ package util
 
 import "testing"
 
-func Test(t *testing.T) {
+func TestGetFiles(t *testing.T) {
 	files, err := GetFiles("./../migration/migration")
 	if err != nil {
 		t.Errorf("%v\n", err.Error())
@@ -13,7 +13,7 @@ func Test(t *testing.T) {
 	}
 }
 
-func TestMissing(t *testing.T) {
+func TestGetFilesMissing(t *testing.T) {
 	_, err := GetFiles("./../migration/missing")
 	if err != nil {
 		expected := "open ./../migration/missing: no such file or directory"
