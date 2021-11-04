@@ -17,10 +17,7 @@ func migrate(db *sql.DB, migrationDir string) error {
 	sort.Sort(byFileVersion(migrationFiles))
 	for i, migrationFile := range migrationFiles {
 		fmt.Printf("🤖 #%v\t%v\n", i+1, migrationFile)
-		content, err := util.LoadFile(migrationFile)
-		if err != nil {
-			return err
-		}
+		content, _ := util.LoadFile(migrationFile)
 		_, err = db.Exec(content)
 		if err != nil {
 			return err

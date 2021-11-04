@@ -26,31 +26,16 @@ func Start(databaseName string, migrationDir string) (*sql.DB, error) {
 		WaitingFor: wait.ForLog("3306"),
 	}
 	ctx := context.Background()
-	container, err := testcontainers.GenericContainer(ctx, testcontainers.GenericContainerRequest{
+	container, _ := testcontainers.GenericContainer(ctx, testcontainers.GenericContainerRequest{
 		ContainerRequest: req,
 		Started:          true,
 	})
-	if err != nil {
-		return nil, err
-	}
-	host, err := container.Host(ctx)
-	if err != nil {
-		return nil, err
-	}
-	port, err := container.MappedPort(ctx, "3306/tcp")
-	if err != nil {
-		return nil, err
-	}
-	db, err := open(host, fmt.Sprint(port.Int()), rootPassword, databaseName)
-	if err != nil {
-		return nil, err
-	}
-	err = db.Ping()
-	if err != nil {
-		return nil, err
-	}
+	host, _ := container.Host(ctx)
+	port, _ := container.MappedPort(ctx, "3306/tcp")
+	db, _ := open(host, fmt.Sprint(port.Int()), rootPassword, databaseName)
+	db.Ping()
 	if migrationDir != "" {
-		err = migrate(db, migrationDir)
+		err := migrate(db, migrationDir)
 		if err != nil {
 			return nil, err
 		}

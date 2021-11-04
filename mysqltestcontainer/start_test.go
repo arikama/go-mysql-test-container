@@ -40,3 +40,17 @@ func TestStartMigration(t *testing.T) {
 		t.Errorf("Error starting MySQL test container: %v\n", err.Error())
 	}
 }
+
+func TestStartMissing(t *testing.T) {
+	_, err := Start("test", "./../migration/missing")
+	if err != nil && err.Error() != "open ./../migration/missing: no such file or directory" {
+		panic(err)
+	}
+}
+
+func TestStartInvalid(t *testing.T) {
+	_, err := Start("test", "./../migration/invalid")
+	if err == nil {
+		panic("This should not happen.")
+	}
+}
