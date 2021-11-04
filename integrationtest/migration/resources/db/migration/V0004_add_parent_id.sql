@@ -1,0 +1,1 @@
+ALTER TABLE `child` ADD COLUMN `parent_id` BIGINT(20) NOT NULL;
