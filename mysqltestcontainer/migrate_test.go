@@ -1,17 +1,14 @@
-package example
+package mysqltestcontainer
 
 import (
-	"fmt"
 	"testing"
-
-	"github.com/arikama/go-mysql-test-container/mysqltestcontainer"
 )
 
 func TestExample(t *testing.T) {
-	db, _ := mysqltestcontainer.Start("test", "./resources/db/migration")
+	db, _ := Start("test", "./../migration/example")
 	names := []string{"Clare", "Teresa", "Priscilla"}
 	for _, name := range names {
-		db.Exec(fmt.Sprintf(`INSERT INTO test (name) VALUES ("%v");`, name))
+		db.Exec(`INSERT INTO test (name) VALUES (?);`, name)
 	}
 	rows, _ := db.Query("SELECT id, name FROM test ORDER BY id ASC;")
 	for i := 0; i < len(names); i++ {
