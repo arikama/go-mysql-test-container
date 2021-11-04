@@ -11,10 +11,7 @@ func GetFiles(relativePath string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	wd, err := os.Getwd()
-	if err != nil {
-		return nil, err
-	}
+	wd, _ := os.Getwd()
 	results := []string{}
 	for _, file := range files {
 		fullPath := filepath.Join(wd, relativePath, file.Name())
