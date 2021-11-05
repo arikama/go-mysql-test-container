@@ -14,12 +14,15 @@ func TestStart(t *testing.T) {
 }
 
 func TestStartExample(t *testing.T) {
-	db, _ := Start("test", "./../migration/example")
+	db, err := Start("test", "./../migration/example")
+	if err != nil {
+		t.Errorf("Got=%v\n", err.Error())
+	}
 	names := []string{"Clare", "Teresa", "Priscilla"}
 	for _, name := range names {
-		db.Exec(`INSERT INTO test (name) VALUES (?);`, name)
+		db.Exec(`INSERT INTO user (username, name) VALUES (?, ?);`, name, name)
 	}
-	rows, _ := db.Query("SELECT id, name FROM test ORDER BY id ASC;")
+	rows, _ := db.Query("SELECT id, name FROM user ORDER BY id ASC;")
 	for i := 0; i < len(names); i++ {
 		rows.Next()
 		var id int

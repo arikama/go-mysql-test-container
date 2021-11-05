@@ -3,11 +3,11 @@ package util
 import "testing"
 
 func TestLoadFile(t *testing.T) {
-	content, err := LoadFile("./../migration/example/V11__alter_table.sql")
+	content, err := LoadFile("./../migration/example/V11_alter_user_columns.sql")
 	if err != nil {
 		panic(err)
 	}
-	expected := "ALTER TABLE `test` ADD COLUMN `name` VARCHAR(64) NOT NULL UNIQUE AFTER `id`;"
+	expected := "ALTER TABLE `user` ADD COLUMN `username` VARCHAR(64) NOT NULL UNIQUE AFTER `id`;\nALTER TABLE `user` ADD COLUMN `name` VARCHAR(64) NOT NULL UNIQUE AFTER `username`;"
 	if content != expected {
 		t.Errorf("Got=%v, want=%v\n", content, expected)
 	}

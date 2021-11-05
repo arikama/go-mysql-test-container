@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"sort"
+	"strings"
 
 	"github.com/arikama/go-mysql-test-container/util"
 )
@@ -18,9 +19,15 @@ func migrate(db *sql.DB, migrationDir string) error {
 	for i, migrationFile := range migrationFiles {
 		fmt.Printf("🤖 #%v\t%v\n", i+1, migrationFile)
 		content, _ := util.LoadFile(migrationFile)
-		_, err = db.Exec(content)
-		if err != nil {
-			return err
+		statements := strings.Split(content, ";")
+		for _, statement := range statements {
+			if statement == "" {
+				continue
+			}
+			_, err = db.Exec(statement + ";")
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil
