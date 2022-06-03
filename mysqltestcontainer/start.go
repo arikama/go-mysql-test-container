@@ -30,10 +30,22 @@ func Start(databaseName string, migrationDir string) (*sql.DB, error) {
 		ContainerRequest: req,
 		Started:          true,
 	})
-	host, _ := container.Host(ctx)
-	port, _ := container.MappedPort(ctx, "3306/tcp")
-	db, _ := open(host, fmt.Sprint(port.Int()), rootPassword, databaseName)
-	db.Ping()
+	host, err := container.Host(ctx)
+	if err != nil {
+		return nil, err
+	}
+	port, err := container.MappedPort(ctx, "3306/tcp")
+	if err != nil {
+		return nil, err
+	}
+	db, err := open(host, fmt.Sprint(port.Int()), rootPassword, databaseName)
+	if err != nil {
+		return nil, err
+	}
+	err = db.Ping()
+	if err != nil {
+		return nil, err
+	}
 	if migrationDir != "" {
 		err := migrate(db, migrationDir)
 		if err != nil {
