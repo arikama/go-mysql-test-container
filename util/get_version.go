@@ -8,7 +8,7 @@ import (
 
 func GetVersion(migrationFullPath string) int {
 	splits := strings.Split(migrationFullPath, "/")
-	r, _ := regexp.Compile(`V\d+`)
+	r, _ := regexp.Compile(`[vV]\d+`)
 	s := splits[len(splits)-1]
 	found := r.FindString(s)
 	if found == "" {
