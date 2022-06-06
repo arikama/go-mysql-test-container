@@ -27,10 +27,13 @@ func Start(databaseName string, migrationDir string) (*sql.DB, error) {
 		WaitingFor: wait.ForLog("3306"),
 	}
 	ctx := context.Background()
-	container, _ := testcontainers.GenericContainer(ctx, testcontainers.GenericContainerRequest{
+	container, err := testcontainers.GenericContainer(ctx, testcontainers.GenericContainerRequest{
 		ContainerRequest: req,
 		Started:          true,
 	})
+	if err != nil {
+		return nil, err
+	}
 	host, err := container.Host(ctx)
 	if err != nil {
 		return nil, err
