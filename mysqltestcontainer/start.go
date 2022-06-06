@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/hooligram/kifu"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
 )
@@ -15,7 +16,7 @@ const (
 )
 
 func Start(databaseName string, migrationDir string) (*sql.DB, error) {
-	fmt.Printf("🤖 Starting MySQL test container...\n")
+	kifu.Info("Starting MySQL test container...")
 	req := testcontainers.ContainerRequest{
 		Image:        "mysql:5.6",
 		ExposedPorts: []string{"3306/tcp", "33060/tcp"},
@@ -52,6 +53,6 @@ func Start(databaseName string, migrationDir string) (*sql.DB, error) {
 			return nil, err
 		}
 	}
-	fmt.Printf("🤖 MySQL test container started successfully!\n")
+	kifu.Info("MySQL test container started successfully!")
 	return db, nil
 }
