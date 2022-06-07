@@ -1,9 +1,13 @@
-package mysqltestcontainer
+package mysqltestcontainer_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/arikama/go-mysql-test-container/mysqltestcontainer"
+)
 
 func TestStart(t *testing.T) {
-	db, err := Start("test", "")
+	db, err := mysqltestcontainer.Start("test", "")
 	if err != nil {
 		t.Errorf("Failed to start: %v", err.Error())
 	}
@@ -14,7 +18,7 @@ func TestStart(t *testing.T) {
 }
 
 func TestStartExample(t *testing.T) {
-	db, err := Start("test", "./../migration/example")
+	db, err := mysqltestcontainer.Start("test", "./../migration/example")
 	if err != nil {
 		t.Errorf("Got=%v\n", err.Error())
 	}
@@ -38,21 +42,21 @@ func TestStartExample(t *testing.T) {
 }
 
 func TestStartMigration(t *testing.T) {
-	_, err := Start("test", "./../migration/migration")
+	_, err := mysqltestcontainer.Start("test", "./../migration/migration")
 	if err != nil {
 		t.Errorf("Error starting MySQL test container: %v\n", err.Error())
 	}
 }
 
 func TestStartMissing(t *testing.T) {
-	_, err := Start("test", "./../migration/missing")
+	_, err := mysqltestcontainer.Start("test", "./../migration/missing")
 	if err != nil && err.Error() != "open ./../migration/missing: no such file or directory" {
 		panic(err)
 	}
 }
 
 func TestStartInvalid(t *testing.T) {
-	_, err := Start("test", "./../migration/invalid")
+	_, err := mysqltestcontainer.Start("test", "./../migration/invalid")
 	if err == nil {
 		panic("This should not happen.")
 	}

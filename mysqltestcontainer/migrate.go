@@ -22,7 +22,7 @@ func migrate(db *sql.DB, migrationDir string) error {
 	if err != nil {
 		return err
 	}
-	sort.Sort(byFileVersion(migrationFiles))
+	sort.Sort(ByFileVersion(migrationFiles))
 	for i, migrationFile := range migrationFiles {
 		kifu.Info("%v\t%v", i+1, migrationFile)
 		content, _ := util.LoadFile(migrationFile)

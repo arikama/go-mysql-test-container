@@ -1,9 +1,13 @@
-package util
+package util_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/arikama/go-mysql-test-container/util"
+)
 
 func TestLoadFile(t *testing.T) {
-	content, err := LoadFile("./../migration/example/V11_alter_user_columns.sql")
+	content, err := util.LoadFile("./../migration/example/V11_alter_user_columns.sql")
 	if err != nil {
 		panic(err)
 	}
@@ -14,7 +18,7 @@ func TestLoadFile(t *testing.T) {
 }
 
 func TestLoadFileMissing(t *testing.T) {
-	content, err := LoadFile("./../migration/example/missing.sql")
+	content, err := util.LoadFile("./../migration/example/missing.sql")
 	if err != nil && err.Error() != "open ./../migration/example/missing.sql: no such file or directory" {
 		panic(err)
 	}

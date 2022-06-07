@@ -1,12 +1,14 @@
-package mysqltestcontainer
+package mysqltestcontainer_test
 
 import (
 	"sort"
 	"testing"
+
+	"github.com/arikama/go-mysql-test-container/mysqltestcontainer"
 )
 
 func TestByFileVersion(t *testing.T) {
-	files := byFileVersion{
+	files := mysqltestcontainer.ByFileVersion{
 		"V00090_test.sql",
 		"V00080_test.sql",
 		"V012_test.sql",
