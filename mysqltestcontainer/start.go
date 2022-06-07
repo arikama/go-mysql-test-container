@@ -14,7 +14,7 @@ const (
 	rootPassword = "password"
 )
 
-func Start(databaseName string, migrationDir string) (*Result, error) {
+func Start(databaseName string) (*Result, error) {
 	kifu.Info("Starting MySQL test container...")
 	req := testcontainers.ContainerRequest{
 		Image:        "mysql:5.6",
@@ -49,12 +49,6 @@ func Start(databaseName string, migrationDir string) (*Result, error) {
 	err = db.Ping()
 	if err != nil {
 		return nil, err
-	}
-	if migrationDir != "" {
-		err := migrate(db, migrationDir)
-		if err != nil {
-			return nil, err
-		}
 	}
 	kifu.Info("MySQL test container started successfully!")
 	result := &Result{
