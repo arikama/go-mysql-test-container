@@ -2,6 +2,7 @@ package mysqltestcontainer
 
 import (
 	"database/sql"
+	"fmt"
 	"sort"
 	"strings"
 
@@ -12,6 +13,12 @@ import (
 func migrate(db *sql.DB, migrationDir string) error {
 	kifu.Info("Running migration...")
 	migrationFiles, err := util.GetFiles(migrationDir)
+	if len(migrationFiles) <= 0 {
+		errMsg := fmt.Sprintf("No migration file found in %v", migrationDir)
+		kifu.Error(errMsg)
+		panic(errMsg)
+	}
+	kifu.Info("Found %v migration files in %v", len(migrationFiles), migrationDir)
 	if err != nil {
 		return err
 	}
