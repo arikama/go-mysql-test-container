@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/go-sql-driver/mysql v1.6.0
-	github.com/hooligram/kifu v1.2.1
+	github.com/hooligram/kifu v1.2.4
 	github.com/testcontainers/testcontainers-go v0.11.1
 )
 

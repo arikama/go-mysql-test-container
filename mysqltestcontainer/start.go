@@ -2,7 +2,6 @@ package mysqltestcontainer
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -15,7 +14,7 @@ const (
 	rootPassword = "password"
 )
 
-func Start(databaseName string, migrationDir string) (*sql.DB, error) {
+func Start(databaseName string, migrationDir string) (*Result, error) {
 	kifu.Info("Starting MySQL test container...")
 	req := testcontainers.ContainerRequest{
 		Image:        "mysql:5.6",
@@ -42,7 +41,8 @@ func Start(databaseName string, migrationDir string) (*sql.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	db, err := open(host, fmt.Sprint(port.Int()), rootPassword, databaseName)
+	p := fmt.Sprint(port.Int())
+	db, err := open(host, p, rootPassword, databaseName)
 	if err != nil {
 		return nil, err
 	}
@@ -57,5 +57,13 @@ func Start(databaseName string, migrationDir string) (*sql.DB, error) {
 		}
 	}
 	kifu.Info("MySQL test container started successfully!")
-	return db, nil
+	result := &Result{
+		Db:       db,
+		Username: "root",
+		Password: rootPassword,
+		Ip:       host,
+		Port:     p,
+		Database: databaseName,
+	}
+	return result, nil
 }

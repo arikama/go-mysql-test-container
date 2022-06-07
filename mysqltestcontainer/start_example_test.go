@@ -5,6 +5,6 @@ import (
 )
 
 func ExampleStart() {
-	db, _ := mysqltestcontainer.Start("test", "./../migration")
-	db.Ping()
+	result, _ := mysqltestcontainer.Start("test", "./../migration/example")
+	result.Db.Ping()
 }

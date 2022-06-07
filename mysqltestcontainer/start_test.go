@@ -7,21 +7,22 @@ import (
 )
 
 func TestStart(t *testing.T) {
-	db, err := mysqltestcontainer.Start("test", "")
+	result, err := mysqltestcontainer.Start("test", "")
 	if err != nil {
 		t.Errorf("Failed to start: %v", err.Error())
 	}
-	err = db.Ping()
+	err = result.Db.Ping()
 	if err != nil {
 		t.Errorf("Ping failed: %v", err.Error())
 	}
 }
 
 func TestStartExample(t *testing.T) {
-	db, err := mysqltestcontainer.Start("test", "./../migration/example")
+	result, err := mysqltestcontainer.Start("test", "./../migration/example")
 	if err != nil {
 		t.Errorf("Got=%v\n", err.Error())
 	}
+	db := result.Db
 	names := []string{"Clare", "Teresa", "Priscilla"}
 	for _, name := range names {
 		db.Exec(`INSERT INTO user (username, name) VALUES (?, ?);`, name, name)
@@ -49,10 +50,12 @@ func TestStartMigration(t *testing.T) {
 }
 
 func TestStartMissing(t *testing.T) {
-	_, err := mysqltestcontainer.Start("test", "./../migration/missing")
-	if err != nil && err.Error() != "open ./../migration/missing: no such file or directory" {
-		panic(err)
-	}
+	defer func() {
+		if r := recover(); r == nil {
+			t.Error("Expected panic to happen when migration files are missing")
+		}
+	}()
+	mysqltestcontainer.Start("test", "./../migration/missing")
 }
 
 func TestStartInvalid(t *testing.T) {
