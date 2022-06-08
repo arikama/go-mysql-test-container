@@ -15,6 +15,8 @@ const (
 	rootPassword = "password"
 )
 
+// Create creates a container containing MySQL in Docker & returns the connection info along with
+// the created database.
 func Create(databaseName string) (*MySql, error) {
 	kifu.Info("Starting MySQL test container...")
 	req := testcontainers.ContainerRequest{
