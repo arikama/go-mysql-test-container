@@ -2,7 +2,7 @@ package mysqltestcontainer
 
 import "database/sql"
 
-type Result struct {
+type MySql struct {
 	Db       *sql.DB
 	Username string
 	Password string

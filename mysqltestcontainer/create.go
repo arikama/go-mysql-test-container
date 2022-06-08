@@ -14,7 +14,7 @@ const (
 	rootPassword = "password"
 )
 
-func Start(databaseName string) (*Result, error) {
+func Create(databaseName string) (*MySql, error) {
 	kifu.Info("Starting MySQL test container...")
 	req := testcontainers.ContainerRequest{
 		Image:        "mysql:5.6",
@@ -47,7 +47,7 @@ func Start(databaseName string) (*Result, error) {
 		return nil, err
 	}
 	kifu.Info("MySQL test container started successfully!")
-	result := &Result{
+	result := &MySql{
 		Db:       db,
 		Username: "root",
 		Password: rootPassword,

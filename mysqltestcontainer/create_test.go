@@ -6,12 +6,12 @@ import (
 	"github.com/arikama/go-mysql-test-container/mysqltestcontainer"
 )
 
-func TestStart(t *testing.T) {
-	result, err := mysqltestcontainer.Start("test")
+func TestCreate(t *testing.T) {
+	mySql, err := mysqltestcontainer.Create("test")
 	if err != nil {
-		t.Errorf("Failed to start: error=%v", err.Error())
+		t.Errorf("Create failed: error=%v", err.Error())
 	}
-	err = result.Db.Ping()
+	err = mySql.Db.Ping()
 	if err != nil {
 		t.Errorf("Ping failed: error=%v", err.Error())
 	}
