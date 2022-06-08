@@ -11,6 +11,7 @@ import (
 )
 
 const (
+	rootUsername = "root"
 	rootPassword = "password"
 )
 
@@ -47,13 +48,13 @@ func Create(databaseName string) (*MySql, error) {
 		return nil, err
 	}
 	kifu.Info("MySQL test container started successfully!")
-	result := &MySql{
+	mySql := &MySql{
 		Db:       db,
-		Username: "root",
+		Username: rootUsername,
 		Password: rootPassword,
 		Ip:       host,
 		Port:     p,
 		Database: databaseName,
 	}
-	return result, nil
+	return mySql, nil
 }
