@@ -27,8 +27,8 @@ import (
 )
 
 func Test(t *testing.T) {
-	result, _ := mysqltestcontainer.Start("test")
-	result.Db.Ping()
+	mySql, _ := mysqltestcontainer.Create("test")
+	mySql.Db.Ping()
 }
 ```
 
