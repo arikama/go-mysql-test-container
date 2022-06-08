@@ -46,12 +46,14 @@ func Create(databaseName string) (*MySql, error) {
 	}
 	kifu.Info("MySQL test container started successfully!")
 	mySql := &MySql{
-		Db:       db,
-		Username: rootUsername,
-		Password: rootPassword,
-		Ip:       host,
-		Port:     p,
-		DbName:   databaseName,
+		db: db,
+		dbInfo: &DbInfo{
+			Username: rootUsername,
+			Password: rootPassword,
+			Ip:       host,
+			Port:     p,
+			DbName:   databaseName,
+		},
 	}
 	return mySql, nil
 }

@@ -11,14 +11,17 @@ func TestCreate(t *testing.T) {
 	mySql, err := mysqltestcontainer.Create("test")
 
 	assert.Nil(t, err)
-	assert.NotEmpty(t, mySql.Ip)
-	assert.NotEmpty(t, mySql.Port)
-	assert.NotEmpty(t, mySql.Username)
-	assert.NotEmpty(t, mySql.Password)
-	assert.NotEmpty(t, mySql.DbName)
-	assert.NotNil(t, mySql.Db)
+	assert.NotNil(t, mySql.GetDb())
 
-	err = mySql.Db.Ping()
+	dbInfo := mySql.GetDbInfo()
+
+	assert.NotEmpty(t, dbInfo.Ip)
+	assert.NotEmpty(t, dbInfo.Port)
+	assert.NotEmpty(t, dbInfo.Username)
+	assert.NotEmpty(t, dbInfo.Password)
+	assert.NotEmpty(t, dbInfo.DbName)
+
+	err = mySql.GetDb().Ping()
 
 	assert.Nil(t, err)
 }

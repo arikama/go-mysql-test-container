@@ -3,10 +3,14 @@ package mysqltestcontainer
 import "database/sql"
 
 type MySql struct {
-	Db       *sql.DB
-	Username string
-	Password string
-	Ip       string
-	Port     string
-	DbName   string
+	db     *sql.DB
+	dbInfo *DbInfo
+}
+
+func (m *MySql) GetDb() *sql.DB {
+	return m.db
+}
+
+func (m *MySql) GetDbInfo() *DbInfo {
+	return m.dbInfo
 }
