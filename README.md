@@ -5,7 +5,7 @@
 [![coverage](https://codecov.io/gh/arikama/go-mysql-test-container/branch/master/graph/badge.svg?token=isZCzDyj1N)](https://codecov.io/gh/arikama/go-mysql-test-container)
 [![build](https://github.com/arikama/go-mysql-test-container/actions/workflows/build.yml/badge.svg)](https://github.com/arikama/go-mysql-test-container/actions/workflows/build.yml)
 
-MySQL wrapper for https://github.com/testcontainers/testcontainers-go
+Golang MySQL testcontainer
 
 ## Usage
 
