@@ -28,7 +28,11 @@ import (
 
 func Test(t *testing.T) {
 	mySql, _ := mysqltestcontainer.Create("test")
-	mySql.Db.Ping()
+	db := mySql.GetDb()
+	err := db.Ping()
+	if err != nil {
+		log.L.Errorln(err.Error())
+	}
 }
 ```
 
