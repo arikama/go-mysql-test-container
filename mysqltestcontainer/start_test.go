@@ -9,10 +9,10 @@ import (
 func TestStart(t *testing.T) {
 	result, err := mysqltestcontainer.Start("test")
 	if err != nil {
-		t.Errorf("Failed to start: %v", err.Error())
+		t.Errorf("Failed to start: error=%v", err.Error())
 	}
 	err = result.Db.Ping()
 	if err != nil {
-		t.Errorf("Ping failed: %v", err.Error())
+		t.Errorf("Ping failed: error=%v", err.Error())
 	}
 }

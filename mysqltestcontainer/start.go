@@ -46,10 +46,6 @@ func Start(databaseName string) (*Result, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = db.Ping()
-	if err != nil {
-		return nil, err
-	}
 	kifu.Info("MySQL test container started successfully!")
 	result := &Result{
 		Db:       db,
