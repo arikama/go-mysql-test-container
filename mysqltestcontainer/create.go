@@ -36,15 +36,10 @@ func Create(databaseName string) (*MySql, error) {
 	if err != nil {
 		return nil, err
 	}
-	host, err := container.Host(ctx)
-	if err != nil {
-		return nil, err
-	}
-	port, err := container.MappedPort(ctx, "3306/tcp")
-	if err != nil {
-		return nil, err
-	}
+	host, _ := container.Host(ctx)
+	port, _ := container.MappedPort(ctx, "3306/tcp")
 	p := fmt.Sprint(port.Int())
+	kifu.Info("Connecting to MySQL inside test container: host=%v, port=%v, database_name=%v", host, p, databaseName)
 	db, err := open(host, p, rootPassword, databaseName)
 	if err != nil {
 		return nil, err
