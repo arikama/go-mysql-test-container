@@ -54,7 +54,7 @@ func Create(databaseName string) (*MySql, error) {
 		Password: rootPassword,
 		Ip:       host,
 		Port:     p,
-		Database: databaseName,
+		DbName:   databaseName,
 	}
 	return mySql, nil
 }

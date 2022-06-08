@@ -8,5 +8,5 @@ type MySql struct {
 	Password string
 	Ip       string
 	Port     string
-	Database string
+	DbName   string
 }
