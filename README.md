@@ -1,5 +1,6 @@
 # go-mysql-test-container
 
+[![pkg](https://pkg.go.dev/badge/github.com/arikama/go-mysql-test-container.svg)](https://pkg.go.dev/github.com/arikama/go-mysql-test-container)
 [![report](https://goreportcard.com/badge/github.com/arikama/go-mysql-test-container)](https://goreportcard.com/report/github.com/arikama/go-mysql-test-container)
 [![coverage](https://codecov.io/gh/arikama/go-mysql-test-container/branch/master/graph/badge.svg?token=isZCzDyj1N)](https://codecov.io/gh/arikama/go-mysql-test-container)
 [![build](https://github.com/arikama/go-mysql-test-container/actions/workflows/build.yml/badge.svg)](https://github.com/arikama/go-mysql-test-container/actions/workflows/build.yml)
@@ -26,8 +27,8 @@ import (
 )
 
 func Test(t *testing.T) {
-	db, _ := mysqltestcontainer.Start("test", "./migration")
-	db.Ping()
+	result, _ := mysqltestcontainer.Start("test")
+	result.Db.Ping()
 }
 ```
 
