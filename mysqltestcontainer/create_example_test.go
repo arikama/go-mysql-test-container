@@ -1,7 +1,7 @@
 package mysqltestcontainer_test
 
 import (
-	"github.com/arikama/go-mysql-test-container/mysqltestcontainer"
+	"github.com/andylongstaffe/go-mysql-test-container/mysqltestcontainer"
 	"github.com/containerd/containerd/log"
 )
 

@@ -1,9 +1,9 @@
 package mysqltestcontainer_test
 
 import (
+	"github.com/andylongstaffe/go-mysql-test-container/mysqltestcontainer"
 	"testing"
 
-	"github.com/arikama/go-mysql-test-container/mysqltestcontainer"
 	"github.com/stretchr/testify/assert"
 )
 

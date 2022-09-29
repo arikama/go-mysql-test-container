@@ -1,16 +1,24 @@
 package mysqltestcontainer
 
-import "database/sql"
+import (
+	"database/sql"
+	"github.com/testcontainers/testcontainers-go"
+)
 
-type MySql struct {
-	db     *sql.DB
-	dbInfo *DbInfo
+type MySqlTestContainer struct {
+	db        *sql.DB
+	dbInfo    *DbInfo
+	container testcontainers.Container
 }
 
-func (m *MySql) GetDb() *sql.DB {
+func (m *MySqlTestContainer) GetDb() *sql.DB {
 	return m.db
 }
 
-func (m *MySql) GetDbInfo() *DbInfo {
+func (m *MySqlTestContainer) GetDbInfo() *DbInfo {
 	return m.dbInfo
+}
+
+func (m *MySqlTestContainer) GetContainer() testcontainers.Container {
+	return m.container
 }
