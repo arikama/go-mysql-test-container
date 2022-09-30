@@ -13,14 +13,14 @@ import (
 
 func TestMigrate(t *testing.T) {
 	// Create container
-	mySql, err := mysqltestcontainer.Create("test")
+	container, err := mysqltestcontainer.Create("test")
 	assert.Nil(t, err)
-	err = mySql.GetDb().Ping()
+	err = container.GetDb().Ping()
 	assert.Nil(t, err)
-	defer mySql.GetContainer().Terminate(context.TODO())
+	defer container.GetContainer().Terminate(context.TODO())
 
 	// Migrate schema
-	driver, err := mysql.WithInstance(mySql.GetDb(), &mysql.Config{})
+	driver, err := mysql.WithInstance(container.GetDb(), &mysql.Config{})
 	assert.Nil(t, err)
 	m, err := migrate.NewWithDatabaseInstance(
 		"file://./migrations",
@@ -31,4 +31,16 @@ func TestMigrate(t *testing.T) {
 	assert.Nil(t, err)
 
 	// check schema here
+	db := container.GetDb()
+	_, err = db.Exec("insert into test(firstname) values (?)", "andy")
+	assert.Nil(t, err)
+
+	rows, err := db.Query("select firstname from test")
+	assert.Nil(t, err)
+	var name string
+	if rows.Next() {
+		assert.Nil(t, rows.Scan(&name))
+	}
+	assert.Equal(t, "andy", name)
+
 }
